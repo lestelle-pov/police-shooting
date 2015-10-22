@@ -1,5 +1,8 @@
 /* You'll probably want to add some styles here */
 #map-container {
-	height: 400px;
-	width: 800px;
+	height: 500px;
+}
+
+#page-title {
+	text-align: center;
 }
