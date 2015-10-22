@@ -4,7 +4,6 @@
 	-be sure to mention how hispanics are not accurately represented as a Race
 	 because there is inconsistency in the data (i.e. certain races are 
 	 considered 'hispanic' and many unknown Races are 'hispanic')
-
 */
 
 // Function to draw your map
@@ -44,8 +43,8 @@ var customBuild = function(data, map) {
 	var unknown = new L.LayerGroup([]); // 'Unknown' or 'undefined'
 	
 	// keeps track of victim's that were armed or unarmed
-	var armed = {white: 0, black: 0, indian: 0, asian: 0, islander: 0, unknown: 0};
-	var unarmed = {white: 0, black: 0, indian: 0, asian: 0, islander: 0, unknown: 0};
+	var armed = {white: 0, nonwhite: 0, unknown: 0};
+	var unarmed = {white: 0, nonwhite: 0, unknown: 0};
 
 	// create variable for circle data points on map
 	var circle;
@@ -61,7 +60,6 @@ var customBuild = function(data, map) {
 	            fillColor: '#A60000',
 	            fillOpacity: 0.5
 	        });
-
 	    } else { 
 	    // circle is blue (default) if the victim was Hit
 	        circle = L.circleMarker([d.lat, d.lng], {
@@ -78,16 +76,16 @@ var customBuild = function(data, map) {
 	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.white++ : unarmed.white++;	    	
 	    } else if (d.Race == 'Black or African American') {
 	    	circle.addTo(black);
-	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.black++ : unarmed.black++;
+	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.nonwhite++ : unarmed.nonwhite++;
 	    } else if (d.Race == 'American Indian or Alaska Native') {
 	    	circle.addTo(indian);
-	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.indian++ : unarmed.indian++;
+	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.nonwhite++ : unarmed.nonwhite++;
 	    } else if (d.Race == 'Asian') {
 	    	circle.addTo(asian);
-	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.asian++ : unarmed.asian++;
+	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.nonwhite++ : unarmed.nonwhite++;
 	    } else if (d.Race == 'Native Hawaiian or Other Pacific Islander') {
 	    	circle.addTo(islander);
-	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.islander++ : unarmed.islander++;
+	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.nonwhite++ : unarmed.nonwhite++;
 	    } else {
 	    	circle.addTo(unknown);
 	    	(d['Armed or Unarmed?'] == 'Armed') ? armed.unknown++ : unarmed.unknown++;
@@ -101,18 +99,28 @@ var customBuild = function(data, map) {
 	    }
 
     });
+
+	console.log(unarmed.unknown);
 	
 	// Once layers are on the map, add a leaflet controller that shows/hides layers
   	var raceLayers = {
   		"White": white,
-  		"Black": black,
+  		"Black or African American": black,
   		"American Indian or Alaska Native": indian,
+  		"Native Hawaiian or Other Pacific Islander": islander,
   		"Asian": asian,
-  		"Islander": islander,
   		"Unknown": unknown
   	}
 
   	L.control.layers(null, raceLayers, {collapsed: false}).addTo(map);
+
+  	// Populate table data
+  	$('#white-armed').html(armed.white);
+  	$('#white-unarmed').html(unarmed.white);
+  	$('#nonwhite-armed').html(armed.nonwhite);
+  	$('#nonwhite-unarmed').html(unarmed.nonwhite);
+  	$('#unknown-armed').html(armed.unknown);
+  	$('#unknown-unarmed').html(unarmed.unknown);
 }
 
 

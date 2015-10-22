@@ -6,3 +6,15 @@
 #page-title {
 	text-align: center;
 }
+
+#map-explanation {
+	text-align: center;
+}
+
+#hit {
+	color: #E6BD30;
+}
+
+#killed {
+	color: #A60000;
+}

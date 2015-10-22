@@ -28,7 +28,41 @@
  		<!-- You may want to put your title and additional informaiton here -->
         <div class="container">
             <h1 id="page-title">Police Shootings</h1>
+        </div>
 
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Armed</th>
+                        <th>Unarmed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">White</th>
+                        <td id="white-armed"></td>
+                        <td id="white-unarmed"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Non-white</th>
+                        <td id="nonwhite-armed"></td>
+                        <td id="nonwhite-unarmed"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Unknown</th>
+                        <td id="unknown-armed"></td>
+                        <td id="unknown-unarmed"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="container">
+            <p id="map-explanation">
+                This map shows crowdsourced police shooting data from <a href="http://regressing.deadspin.com/deadspin-police-shooting-database-update-were-still-go-1627414202">deadspin</a>. Circle color indicates if the victim was <span id="hit">hit</span> or <span id="killed">killed</span>. Filter each incident by race and click the points for details.
+            </p>
         </div>
 
         <!-- div for drawing the map. id referenced in map.js -->
